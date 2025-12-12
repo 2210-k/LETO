@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Летний дневник 2026</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Шапка -->
+        <header class="header">
+            <h1><i class="fas fa-sun"></i> Летний дневник 2026</h1>
+            <p class="subtitle">Июнь - Август | Вся статистика и воспоминания</p>
+        </header>
+
+        <!-- Основное содержимое -->
+        <main class="main-content">
+            <!-- Левая панель -->
+            <aside class="sidebar">
+                <div class="stats-card">
+                    <h3><i class="fas fa-chart-line"></i> Летняя статистика</h3>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Дней прошло:</span>
+                            <span id="days-passed" class="stat-value">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Дней гуляли:</span>
+                            <span id="days-walked" class="stat-value">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Средняя оценка:</span>
+                            <span id="avg-rating" class="stat-value">0.0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Солнечных дней:</span>
+                            <span id="sunny-days" class="stat-value">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn add-event-btn" id="addEventBtn">
+                    <i class="fas fa-plus-circle"></i> Добавить запись
+                </button>
+
+                <div class="quick-actions">
+                    <h4><i class="fas fa-bolt"></i> Быстрые действия</h4>
+                    <button class="btn quick-btn" id="todayBtn">
+                        <i class="fas fa-calendar-day"></i> Сегодня
+                    </button>
+                    <button class="btn quick-btn" id="generateReportBtn">
+                        <i class="fas fa-file-alt"></i> Отчет за лето
+                    </button>
+                    <button class="btn quick-btn" id="exportBtn">
+                        <i class="fas fa-download"></i> Экспорт данных
+                    </button>
+                </div>
+
+                <div class="weather-widget">
+                    <h4><i class="fas fa-cloud-sun"></i> Погода сегодня</h4>
+                    <div class="weather-icons">
+                        <div class="weather-icon" data-weather="sunny">☀️</div>
+                        <div class="weather-icon" data-weather="cloudy">⛅</div>
+                        <div class="weather-icon" data-weather="rainy">🌧️</div>
+                        <div class="weather-icon" data-weather="stormy">⛈️</div>
+                        <div class="weather-icon" data-weather="windy">🌬️</div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Календарь -->
+            <section class="calendar-section">
+                <div class="calendar-header">
+                    <button class="btn nav-btn" id="prevMonth">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <h2 id="currentMonth">Июнь 2026</h2>
+                    <button class="btn nav-btn" id="nextMonth">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+
+                <div class="month-selector">
+                    <select id="monthSelect">
+                        <option value="5">Июнь 2026</option>
+                        <option value="6">Июль 2026</option>
+                        <option value="7">Август 2026</option>
+                    </select>
+                    <select id="yearSelect">
+                        <option value="2026">2026</option>
+                    </select>
+                </div>
+
+                <div class="weekdays">
+                    <div>Пн</div>
+                    <div>Вт</div>
+                    <div>Ср</div>
+                    <div>Чт</div>
+                    <div>Пт</div>
+                    <div>Сб</div>
+                    <div>Вс</div>
+                </div>
+
+                <div class="calendar" id="calendar">
+                    <!-- Календарь генерируется через JS -->
+                </div>
+
+                <div class="legend">
+                    <div class="legend-item">
+                        <span class="color-dot walked"></span> Гуляли
+                    </div>
+                    <div class="legend-item">
+                        <span class="color-dot not-walked"></span> Не гуляли
+                    </div>
+                    <div class="legend-item">
+                        <span class="color-dot has-event"></span> Есть запись
+                    </div>
+                </div>
+            </section>
+
+            <!-- Правая панель (детали дня) -->
+            <aside class="day-details">
+                <div class="day-header">
+                    <h3 id="selectedDate">Выберите день</h3>
+                    <div class="day-rating" id="dayRating"></div>
+                </div>
+                
+                <div class="day-info" id="dayInfo">
+                    <p class="placeholder">Выберите день в календаре для просмотра деталей</p>
+                </div>
+
+                <div class="activity-list" id="activityList">
+                    <h4><i class="fas fa-list-check"></i> Активности дня</h4>
+                    <ul id="activitiesList">
+                        <!-- Список активностей -->
+                    </ul>
+                </div>
+
+                <div class="games-list" id="gamesList">
+                    <h4><i class="fas fa-gamepad"></i> Во что играли</h4>
+                    <ul id="gamesListContent">
+                        <!-- Список игр -->
+                    </ul>
+                </div>
+            </aside>
+        </main>
+
+        <!-- Футер -->
+        <footer class="footer">
+            <p>Летний дневник 2026 | Данные сохраняются автоматически</p>
+            <p class="hint">Для удаления записи нажмите на день дважды</p>
+        </footer>
+    </div>
+
+    <!-- Модальное окно добавления записи -->
+    <div class="modal" id="eventModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-calendar-plus"></i> Запись о дне</h3>
+                <button class="close-btn" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="eventForm">
+                    <div class="form-group">
+                        <label for="eventDate"><i class="fas fa-calendar"></i> Дата *</label>
+                        <input type="date" id="eventDate" required min="2026-06-01" max="2026-08-31">
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-walking"></i> Гуляли сегодня? *</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="walked" value="true" required> Да
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="walked" value="false"> Нет
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rating"><i class="fas fa-star"></i> Оценка дня (1-5) *</label>
+                        <div class="rating-stars">
+                            <span class="star" data-value="1">☆</span>
+                            <span class="star" data-value="2">☆</span>
+                            <span class="star" data-value="3">☆</span>
+                            <span class="star" data-value="4">☆</span>
+                            <span class="star" data-value="5">☆</span>
+                            <input type="hidden" id="rating" name="rating" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="participants"><i class="fas fa-users"></i> Кто был *</label>
+                        <textarea id="participants" placeholder="Например: Маша, Петя, Коля, Света..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="absent"><i class="fas fa-user-slash"></i> Кого не было</label>
+                        <textarea id="absent" placeholder="Кто отсутствовал..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="weather"><i class="fas fa-cloud-sun"></i> Погода *</label>
+                        <select id="weather" required>
+                            <option value="">Выберите погоду</option>
+                            <option value="sunny">☀️ Солнечно</option>
+                            <option value="cloudy">⛅ Облачно</option>
+                            <option value="partly-cloudy">🌤️ Переменная облачность</option>
+                            <option value="rainy">🌧️ Дождь</option>
+                            <option value="stormy">⛈️ Гроза</option>
+                            <option value="windy">🌬️ Ветрено</option>
+                            <option value="hot">🔥 Жарко</option>
+                            <option value="cool">🍃 Прохладно</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="activities"><i class="fas fa-running"></i> Что делали *</label>
+                        <textarea id="activities" placeholder="Подробно опишите, чем занимались..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="games"><i class="fas fa-dice"></i> Во что играли *</label>
+                        <textarea id="games" placeholder="Какие игры были..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="notes"><i class="fas fa-sticky-note"></i> Дополнительная информация</label>
+                        <textarea id="notes" placeholder="Веселые моменты, смешные истории, важные события..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="photo"><i class="fas fa-camera"></i> Ссылка на фото/видео</label>
+                        <input type="url" id="photo" placeholder="https://...">
+                    </div>
+
+                    <div class="form-buttons">
+                        <button type="submit" class="btn submit-btn">
+                            <i class="fas fa-save"></i> Сохранить запись
+                        </button>
+                        <button type="button" class="btn cancel-btn" id="cancelBtn">
+                            Отмена
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно отчета -->
+    <div class="modal" id="reportModal">
+        <div class="modal-content report-modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-chart-pie"></i> Отчет за лето 2026</h3>
+                <button class="close-btn" id="closeReportModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="report-content" id="reportContent">
+                    <!-- Отчет генерируется через JS -->
+                </div>
+                <button class="btn print-btn" id="printReportBtn">
+                    <i class="fas fa-print"></i> Распечатать отчет
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
